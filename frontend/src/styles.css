@@ -22,7 +22,7 @@ body, html, #root {
 }
 
 .chat-wrapper {
-  background: rgba(255, 255, 255, 0.85);
+  background: rgba(241, 236, 238, 0.85);
   backdrop-filter: blur(10px);
   border-radius: 18px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
@@ -38,7 +38,7 @@ body, html, #root {
 .chat-header {
   text-align: center;
   padding: 25px 20px;
-  border-bottom: 1px solid #e3e3e3;
+  border-bottom: 1px solid #df2d92;
 }
 
 .chat-header h1 {
@@ -87,7 +87,7 @@ body, html, #root {
 }
 
 .bubble.user {
-  background: #4f46e5;
+  background: #cd3fa5;
   color: white;
   align-self: flex-end;
 }
@@ -126,7 +126,7 @@ body, html, #root {
 }
 
 .input-bar button {
-  background: #4f46e5;
+  background: #cd3fa5;
   color: white;
   border: none;
   padding: 10px 18px;
@@ -138,7 +138,7 @@ body, html, #root {
 }
 
 .input-bar button:hover {
-  background: #4338ca;
+  background: #cd3fa5;
 }
 
 /* === RESPONSIVE === */
@@ -168,3 +168,94 @@ body, html, #root {
     transform: translateY(0);
   }
 }
+
+/* Layout base */
+.app {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: #c74b95;
+  font-family: "Inter", sans-serif;
+}
+
+.chat-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.chat-header {
+  text-align: center;
+  padding: 30px 20px 20px;
+  position: relative;
+}
+
+.chat-header h1 {
+  margin: 0;
+  font-size: 1.8rem;
+  color: #111;
+}
+
+.chat-header p {
+  color: #666;
+  margin-top: 5px;
+}
+
+/* Chat body */
+.chat-body {
+  padding: 20px;
+  height: 400px;
+  overflow-y: auto;
+}
+
+.welcome {
+  text-align: center;
+  color: #555;
+}
+
+.bubble {
+  margin-bottom: 10px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  max-width: 80%;
+}
+
+.bubble.user {
+  background: #de2aa2;
+  color: white;
+  align-self: flex-end;
+}
+
+.bubble.bot {
+  background: #eaeaea;
+  color: #333;
+  align-self: flex-start;
+}
+
+/* Footer credit */
+.footer-credit {
+  text-align: center;
+  font-size: 0.9rem;
+  color: #777;
+  margin-top: 10px;
+  padding: 10px 0;
+  border-top: 1px solid #eee;
+}
+
+.web3-link {
+  color: #df2d92;
+  text-decoration: none;
+  font-weight: 600;
+  transition: 0.2s ease;
+}
+
+.web3-link:hover {
+  text-decoration: underline;
+  color: #df2d92;
+}
+

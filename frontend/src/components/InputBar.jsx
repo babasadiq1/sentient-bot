@@ -1,34 +1,41 @@
-// src/components/InputBar.jsx
 import React, { useState } from "react";
 
 export default function InputBar({ setMessages }) {
   const [input, setInput] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const sendMessage = async () => {
-    if (!input.trim()) return;
+    if (!input.trim() || loading) return;
 
     const userMsg = { role: "user", text: input };
     setMessages((prev) => [...prev, userMsg]);
+    setLoading(true);
 
     try {
-      const res = await fetch("http://localhost:5000/api/chat", {
+      const res = await fetch("http://localhost:5000/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message: input }),
       });
+
+      if (!res.ok) throw new Error("Network response was not ok");
+
       const data = await res.json();
 
       setMessages((prev) => [
         ...prev,
-        { role: "bot", text: data.reply || "⚠️ Connection error" },
+        { role: "assistant", text: data.reply || "⚠️ No response" },
       ]);
-    } catch {
+    } catch (err) {
+      console.error("Fetch error:", err);
       setMessages((prev) => [
         ...prev,
-        { role: "bot", text: "⚠️ Server not responding" },
+        { role: "assistant", text: "⚠️ Server not responding" },
       ]);
+    } finally {
+      setLoading(false);
+      setInput("");
     }
-    setInput("");
   };
 
   const handleKey = (e) => {
@@ -39,15 +46,22 @@ export default function InputBar({ setMessages }) {
   };
 
   return (
-    <div className="input-bar">
+    <div className="input-bar" style={{ display: "flex", marginTop: 8 }}>
       <textarea
         placeholder="Type your message..."
         value={input}
         onChange={(e) => setInput(e.target.value)}
         onKeyDown={handleKey}
         rows={1}
+        style={{ flex: 1, padding: 8, borderRadius: 6 }}
       />
-      <button onClick={sendMessage}>Send</button>
+      <button
+        onClick={sendMessage}
+        disabled={loading || !input.trim()}
+        style={{ marginLeft: 8, padding: "8px 16px", borderRadius: 6 }}
+      >
+        {loading ? "Sending..." : "Send"}
+      </button>
     </div>
   );
 }
