@@ -15,7 +15,7 @@ export default function InputBar({ setMessages }) {
     setLoading(true);
 
     try {
-    const res = await fetch("https://<your-backend-name>.onrender.com/chat", {
+    const res = await fetch("https://sentient-bot.onrender.com/chat", {
 
         method: "POST",
         headers: { "Content-Type": "application/json" },
