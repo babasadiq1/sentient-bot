@@ -4,6 +4,9 @@ export default function InputBar({ setMessages }) {
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
 
+  // ✅ Automatically switches between local + deployed backend
+  const API_URL = import.meta.env.VITE_API_URL || "https://sentient-bot.onrender.com/chat";
+
   const sendMessage = async () => {
     if (!input.trim() || loading) return;
 
@@ -12,7 +15,7 @@ export default function InputBar({ setMessages }) {
     setLoading(true);
 
     try {
-      const res = await fetch("http://localhost:5000/chat", {
+      const res = await fetch(`${API_URL}/chat`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message: input }),
@@ -53,12 +56,25 @@ export default function InputBar({ setMessages }) {
         onChange={(e) => setInput(e.target.value)}
         onKeyDown={handleKey}
         rows={1}
-        style={{ flex: 1, padding: 8, borderRadius: 6 }}
+        style={{
+          flex: 1,
+          padding: 8,
+          borderRadius: 6,
+          border: "1px solid #ccc",
+          resize: "none",
+        }}
       />
       <button
         onClick={sendMessage}
         disabled={loading || !input.trim()}
-        style={{ marginLeft: 8, padding: "8px 16px", borderRadius: 6 }}
+        style={{
+          marginLeft: 8,
+          padding: "8px 16px",
+          borderRadius: 6,
+          backgroundColor: "#4A90E2",
+          color: "#fff",
+          cursor: loading ? "not-allowed" : "pointer",
+        }}
       >
         {loading ? "Sending..." : "Send"}
       </button>

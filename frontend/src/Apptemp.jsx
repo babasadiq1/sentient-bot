@@ -5,6 +5,32 @@ import InputBar from "./components/InputBar";
 
 export default function App() {
   const [messages, setMessages] = useState([]);
+  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+
+  // Handle sending user message to backend
+  const sendMessage = async (userText) => {
+    const newMessage = { role: "user", text: userText };
+    setMessages((prev) => [...prev, newMessage]);
+
+    try {
+      const res = await fetch(`${API_URL}/api/chat`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: userText }),
+      });
+
+      const data = await res.json();
+      const botReply = { role: "bot", text: data.reply || "No response." };
+
+      setMessages((prev) => [...prev, botReply]);
+    } catch (err) {
+      setMessages((prev) => [
+        ...prev,
+        { role: "bot", text: "⚠️ Failed to connect to backend." },
+      ]);
+      console.error(err);
+    }
+  };
 
   return (
     <div className="app">
@@ -29,8 +55,8 @@ export default function App() {
           )}
         </div>
 
-        {/* Input bar */}
-        <InputBar setMessages={setMessages} />
+        {/* Input bar — send message */}
+        <InputBar onSend={sendMessage} />
 
         {/* Footer credit */}
         <footer className="footer-credit">
