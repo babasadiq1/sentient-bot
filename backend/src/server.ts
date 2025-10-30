@@ -1,29 +1,42 @@
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
-// Import router from routes - omit extension so TS/tsx can resolve during dev,
-// and the compiled output will still work when built to JS.
 import chatRouter from "./routes/chat"; // routes/chat.ts
 
+// Load environment variables
 dotenv.config();
-console.log("PORT:", process.env.PORT);
-console.log("DOBBY_URL:", process.env.DOBBY_API_URL);
-console.log("DOBBY_KEY:", process.env.DOBBY_API_KEY );
-console.log("DOBBY_MODEL:", process.env.DOBBY_MODEL);
-
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-app.use(cors());
+// ✅ Allow all origins (for Vercel frontend)
+app.use(
+  cors({
+    origin: "*", // or replace "*" with your frontend URL for better security
+    methods: ["GET", "POST"],
+    allowedHeaders: ["Content-Type"],
+  })
+);
+
+// ✅ Parse JSON bodies
 app.use(express.json());
 
+// ✅ Chat route
 app.use("/chat", chatRouter);
 
+// ✅ Root route (for Render/Vercel status check)
 app.get("/", (_req, res) => {
-  res.send("✅ Backend running");
+  res.send("✅ Dobby backend is live and ready!");
 });
 
+// ✅ Start server
 app.listen(PORT, () => {
-  console.log(`🚀 Backend running on port ${PORT}`);
+  console.log(`🚀 Dobby backend running on port ${PORT}`);
+  console.log("Environment variables:");
+  console.log({
+    PORT: process.env.PORT,
+    DOBBY_URL: process.env.DOBBY_API_URL,
+    DOBBY_KEY: process.env.DOBBY_API_KEY,
+    DOBBY_MODEL: process.env.DOBBY_MODEL,
+  });
 });
