@@ -17,7 +17,9 @@ function appendToSession(sessionId: string, role: string, text: string) {
   if (sessions[sessionId].length > MAX_MEM_MESSAGES) sessions[sessionId].shift();
 }
 
-router.post("/", async (req: Request, res: Response) => {
+router.post("/", async (req, res) => {
+  // logic
+
   try {
     let { sessionId, message } = req.body;
 
