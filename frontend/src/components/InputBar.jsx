@@ -4,7 +4,7 @@ export default function InputBar({ setMessages }) {
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
 
-  // ✅ Automatically switches between local + deployed backend
+  // ✅ Always use the deployed backend (from .env)
   const API_URL = import.meta.env.VITE_API_URL || "https://sentient-bot.onrender.com/chat";
 
   const sendMessage = async () => {
@@ -15,8 +15,7 @@ export default function InputBar({ setMessages }) {
     setLoading(true);
 
     try {
-    const res = await fetch("https://sentient-bot.onrender.com/chat", {
-
+      const res = await fetch(API_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message: input }),

@@ -1,17 +1,43 @@
 {
   "name": "sentient-bot-backend",
   "version": "1.0.0",
+  "description": "Backend API for the Sentient Dobby Bot — powered by Express, TypeScript, and Fireworks AI.",
   "main": "dist/server.js",
+  "type": "module",
   "scripts": {
     "build": "tsc",
     "start": "node dist/server.js",
-    "dev": "ts-node src/server.ts"
+    "dev": "nodemon --watch src --exec ts-node src/server.ts"
   },
   "dependencies": {
-    "express": "^4.19.0"
+    "axios": "^1.7.7",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
-    "typescript": "^5.4.0",
-    "ts-node": "^10.9.1"
-  }
+    "@types/express": "^4.17.21",
+    "@types/node": "^20.11.30",
+    "@types/cors": "^2.8.17",
+    "@types/uuid": "^9.0.7",
+    "nodemon": "^3.1.4",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.4"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "express",
+    "typescript",
+    "backend",
+    "ai",
+    "chatbot",
+    "fireworks",
+    "sentient",
+    "web3"
+  ],
+  "author": "web3sadiq",
+  "license": "MIT"
 }
