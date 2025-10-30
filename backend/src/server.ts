@@ -2,7 +2,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
-import chatRouter from "./routes/chat.ts"; // ✅ use .js for Render build compatibility
+import chatRouter from "./routes/chat"; // ✅ use .js for Render build compatibility
 
 // 🧩 Load environment variables
 dotenv.config();

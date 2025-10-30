@@ -16,7 +16,7 @@ export default function App() {
     setMessages((prev) => [...prev, newMessage]);
 
     try {
-      const res = await fetch(API_URL, {
+      const res = await fetch(`${API_URL}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message: userText }),
